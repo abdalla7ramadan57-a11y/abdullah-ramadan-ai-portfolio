@@ -347,6 +347,46 @@ section{padding:110px 0;position:relative}
 .cf-card.playing .play-pulse{display:none}
 .cf-card.playing .cf-label{opacity:0;pointer-events:none;transition:opacity .3s}
 
+/* ============ Motion Graphics — dedicated section ============ */
+.motion-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;align-items:center}
+.motion-copy h2{font-size:clamp(34px,4.6vw,58px);font-weight:700;margin-bottom:18px}
+.motion-copy>p{color:var(--text-muted);margin-bottom:18px;max-width:520px}
+.motion-copy>p strong{color:var(--text);font-weight:600}
+.motion-list{list-style:none;display:grid;gap:12px;margin:26px 0 32px}
+.motion-list li{
+  display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:14px;
+  background:var(--glass);border:1px solid var(--glass-border);font-size:14.5px;color:var(--text-muted);
+  transition:border-color .3s,box-shadow .35s;
+}
+.motion-list li:hover{border-color:rgba(255,122,26,0.35);box-shadow:var(--glow-shadow)}
+.motion-list li b{color:var(--text);font-weight:600;display:block;margin-bottom:2px;font-size:15px}
+.motion-list li::before{
+  content:"";flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:8px;
+  background:var(--orange);box-shadow:0 0 12px rgba(255,122,26,0.7);
+}
+.motion-stage{position:relative;display:flex;justify-content:center}
+.motion-stage::before{
+  content:"";position:absolute;width:420px;height:420px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(255,122,26,0.28),transparent 65%);filter:blur(50px);pointer-events:none;
+}
+.motion-phone{
+  position:relative;width:min(310px,100%);aspect-ratio:9/17.5;border-radius:34px;padding:9px;
+  background:linear-gradient(160deg,#262220,#131110 45%,#1d1a17);
+  border:1px solid rgba(255,122,26,0.45);
+  box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 70px rgba(255,122,26,0.22);
+  cursor:pointer;
+}
+.motion-phone .phone-screen{border-radius:26px}
+.motion-phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.motion-sound{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:6;
+  padding:8px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:0.12em;white-space:nowrap;
+  background:rgba(10,10,10,0.65);border:1px solid rgba(255,255,255,0.15);color:var(--text);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:opacity .3s;
+}
+.motion-sound em{font-style:normal;color:var(--orange)}
+.motion-phone.unmuted .motion-sound{opacity:0}
+
 /* ============ Services ============ */
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .svc{
@@ -510,6 +550,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
   .hero .sub{margin-left:auto;margin-right:auto}
   .cta-row,.stats-row{justify-content:center}
   .services-grid{grid-template-columns:repeat(2,1fr)}
+  .motion-grid{grid-template-columns:1fr;gap:56px}
   .about-grid{grid-template-columns:1fr;gap:48px}
   .about-visual{max-width:420px;margin:0 auto}
 }
@@ -565,6 +606,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
     <a href="#top" class="logo">ABDULLAH<span>RAMADAN</span> <span class="ai-badge">AI</span></a>
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
+      <li><a href="#motion">Motion</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#process">Process</a></li>
@@ -577,6 +619,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#work">Work</a>
+  <a href="#motion">Motion</a>
   <a href="#services">Services</a>
   <a href="#about">About</a>
   <a href="#process">Process</a>
@@ -628,9 +671,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
     <div class="filters reveal" id="filters" role="tablist" aria-label="Filter videos by category">
       <button class="filter-pill active" data-filter="all">All</button>
       <button class="filter-pill" data-filter="concept">Concepts</button>
-      <button class="filter-pill" data-filter="ugc">UGC Ads</button>
-      <button class="filter-pill" data-filter="motion">Motion Graphics</button>
-    </div>
+      <button class="filter-pill" data-filter="ugc">UGC Ads</button>    </div>
     <div class="coverflow reveal" id="coverflow">
       <div class="cyl-ring" id="cylRing"><!-- cards injected by JS --></div>
       <div class="drag-hint" id="dragHint" aria-hidden="true">
@@ -647,6 +688,33 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
       <button class="cf-arrow" id="cfPrev" aria-label="Previous video">←</button>
       <div class="cf-dots" id="cfDots"></div>
       <button class="cf-arrow" id="cfNext" aria-label="Next video">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOTION GRAPHICS ============ -->
+<section id="motion">
+  <div class="wrap motion-grid">
+    <div class="motion-copy">
+      <div class="sec-head reveal" style="margin-bottom:26px">
+        <p class="eyebrow">Motion Graphics</p>
+        <h2>Motion That Tells the Story.</h2>
+      </div>
+      <p class="reveal">A dedicated space for my <strong>AI-driven motion graphics</strong> — illustrated scenes and character animation built for vertical, social-first platforms, where every movement carries the message.</p>
+      <ul class="motion-list reveal">
+        <li><div><b>Illustrated Scenes</b>Flat, stylized worlds designed to feel handmade and on-brand.</div></li>
+        <li><div><b>Character Animation</b>Expressive characters that hold attention through the whole story.</div></li>
+        <li><div><b>Vertical-First</b>Framed and paced for Reels, TikTok and Shorts from the first second.</div></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary reveal">Request Motion Graphics</a>
+    </div>
+    <div class="motion-stage reveal">
+      <div class="motion-phone" id="motionPhone" title="Tap to toggle sound">
+        <div class="phone-screen">
+          <video id="motionVideo" src="assets/videos/ai-motion-graphics.mp4" poster="assets/videos/ai-motion-graphics.jpg" muted loop playsinline preload="metadata"></video>
+          <div class="motion-sound">TAP FOR <em>SOUND</em></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -807,7 +875,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
   <div class="wrap footer-inner">
     <a href="#top" class="logo">ABDULLAH<span>RAMADAN</span> <span class="ai-badge">AI</span></a>
     <div class="footer-links">
-      <a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
+      <a href="#work">Work</a><a href="#motion">Motion</a><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a>
     </div>
     <p>© 2026 Abdullah Ramadan. All prompts earned.</p>
     <button class="to-top" id="toTop" aria-label="Back to top">↑</button>
@@ -891,7 +959,6 @@ const REELS = [
   {id:"3FV2CdkWVio", title:"AI Concept 06",       plat:"YOUTUBE", cat:"concept"},
   {id:"ljGg-QPPeSo", title:"Doctor Reel",         plat:"YOUTUBE", cat:"concept"},
   {id:"JMLBUNcm_RE", title:"CGI Ad",              plat:"YOUTUBE", cat:"concept"},
-  {src:"assets/videos/ai-motion-graphics.mp4", poster:"assets/videos/ai-motion-graphics.jpg", title:"Motion Graphics", plat:"MOTION GRAPHICS", cat:"motion"},
   {src:"assets/videos/ai-ugc-01.mp4", poster:"assets/videos/ai-ugc-01.jpg", title:"AI UGC Ad 01", plat:"AI UGC", cat:"ugc"},
   {src:"assets/videos/ai-ugc-02.mp4", poster:"assets/videos/ai-ugc-02.jpg", title:"AI UGC Ad 02", plat:"AI UGC", cat:"ugc"}
 ];
@@ -1076,6 +1143,23 @@ function updateProcess(){
 }
 window.addEventListener("scroll", updateProcess, {passive:true});
 window.addEventListener("resize", updateProcess);
+
+/* ---------- Motion graphics player: autoplay in view, tap toggles sound ---------- */
+const motionPhone = document.getElementById("motionPhone");
+const motionVideo = document.getElementById("motionVideo");
+if(motionPhone && motionVideo){
+  new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !reduceMotion) motionVideo.play().catch(()=>{});
+      else motionVideo.pause();
+    });
+  },{threshold:0.5}).observe(motionPhone);
+  motionPhone.addEventListener("click",()=>{
+    if(motionVideo.paused) motionVideo.play().catch(()=>{});
+    motionVideo.muted = !motionVideo.muted;
+    motionPhone.classList.toggle("unmuted", !motionVideo.muted);
+  });
+}
 
 /* ---------- Back to top ---------- */
 document.getElementById("toTop").addEventListener("click",()=>window.scrollTo({top:0,behavior:reduceMotion?"auto":"smooth"}));
