@@ -380,6 +380,20 @@ section{padding:110px 0;position:relative}
 }
 .motion-phone .phone-screen{border-radius:26px}
 .motion-phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.motion-bg{display:none;position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);max-width:none;object-fit:cover;filter:blur(22px) brightness(0.65)}
+.motion-phone.landscape .motion-bg{display:block}
+.motion-phone.landscape video{object-fit:contain;background:transparent}
+.motion-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+.motion-tab{
+  padding:9px 18px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-muted);
+  background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px);
+  transition:all .3s var(--ease-out);
+}
+.motion-tab:hover{color:var(--text);border-color:rgba(255,122,26,0.4)}
+.motion-tab.active{
+  color:#100800;background:linear-gradient(135deg,var(--orange),var(--orange-mid));
+  border-color:transparent;box-shadow:0 6px 28px rgba(255,122,26,0.35);
+}
 .motion-sound{
   position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:6;
   padding:8px 16px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:0.12em;white-space:nowrap;
@@ -698,8 +712,13 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
       <a href="#contact" class="btn btn-primary reveal">Request Motion Graphics</a>
     </div>
     <div class="motion-stage reveal">
+      <div class="motion-tabs" id="motionTabs">
+        <button class="motion-tab active" data-i="0">Food &amp; Lifestyle</button>
+        <button class="motion-tab" data-i="1">UI &amp; Product</button>
+      </div>
       <div class="motion-phone" id="motionPhone" title="Tap to toggle sound">
         <div class="phone-screen">
+          <img class="motion-bg" id="motionBg" alt="">
           <video id="motionVideo" src="assets/videos/ai-motion-graphics.mp4" poster="assets/videos/ai-motion-graphics.jpg" muted loop playsinline preload="metadata"></video>
           <div class="motion-sound">TAP FOR <em>SOUND</em></div>
         </div>
@@ -959,7 +978,6 @@ const REELS = [
   {src:"assets/videos/ai-skincare.mp4", poster:"assets/videos/ai-skincare.jpg", title:"Skincare Commercial", plat:"AI COMMERCIAL", cat:"concept"},
   {src:"assets/videos/ai-sequence-07.mp4", poster:"assets/videos/ai-sequence-07.jpg", title:"Orange Grove Concept", plat:"AI CONCEPT", cat:"concept"},
   {src:"assets/videos/ai-sequence-01.mp4", poster:"assets/videos/ai-sequence-01.jpg", title:"Orange Peel Concept", plat:"AI CONCEPT", cat:"concept"},
-  {src:"assets/videos/ai-motion-graphics-02.mp4", poster:"assets/videos/ai-motion-graphics-02.jpg", title:"UI Motion Graphics", plat:"AI MOTION", cat:"concept", landscape:true},
   {src:"assets/videos/ai-ugc-01.mp4", poster:"assets/videos/ai-ugc-01.jpg", title:"AI UGC Ad 01", plat:"AI UGC", cat:"ugc"},
   {src:"assets/videos/ai-ugc-02.mp4", poster:"assets/videos/ai-ugc-02.jpg", title:"AI UGC Ad 02", plat:"AI UGC", cat:"ugc"}
 ];
@@ -1159,9 +1177,32 @@ function updateProcess(){
 window.addEventListener("scroll", updateProcess, {passive:true});
 window.addEventListener("resize", updateProcess);
 
-/* ---------- Motion graphics player: autoplay in view, tap toggles sound ---------- */
+/* ---------- Motion graphics player: two samples, tap to toggle sound ---------- */
 const motionPhone = document.getElementById("motionPhone");
 const motionVideo = document.getElementById("motionVideo");
+const motionBg    = document.getElementById("motionBg");
+const motionTabs  = document.getElementById("motionTabs");
+const MOTION_VIDEOS = [
+  {src:"assets/videos/ai-motion-graphics.mp4",    poster:"assets/videos/ai-motion-graphics.jpg",    landscape:false},
+  {src:"assets/videos/ai-motion-graphics-02.mp4", poster:"assets/videos/ai-motion-graphics-02.jpg", landscape:true}
+];
+if(motionTabs){
+  motionTabs.addEventListener("click",e=>{
+    const btn = e.target.closest(".motion-tab"); if(!btn) return;
+    const item = MOTION_VIDEOS[+btn.dataset.i];
+    if(!item) return;
+    motionTabs.querySelectorAll(".motion-tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    motionPhone.classList.toggle("landscape", item.landscape);
+    motionBg.src = item.poster;
+    const wasMuted = motionVideo.muted;
+    motionVideo.src = item.src;
+    motionVideo.poster = item.poster;
+    motionVideo.muted = wasMuted;
+    motionVideo.load();
+    if(!reduceMotion) motionVideo.play().catch(()=>{});
+  });
+}
 if(motionPhone && motionVideo){
   new IntersectionObserver(entries=>{
     entries.forEach(e=>{
