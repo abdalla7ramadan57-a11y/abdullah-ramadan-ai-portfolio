@@ -22,7 +22,7 @@
   --text:#F5F1EC;
   --text-muted:#9C948A;
   --hairline:rgba(255,255,255,0.08);
-  --glow-shadow:0 20px 60px rgba(255,122,26,0.15);
+  --glow-shadow:0 20px 50px rgba(0,0,0,0.5);
   --ease-out:cubic-bezier(0.22,1,0.36,1);
   --radius-card:20px;
   --radius-btn:12px;
@@ -45,34 +45,8 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer}
 ::selection{background:rgba(255,122,26,0.35);color:#fff}
 
-/* ============ Ambient background layer ============ */
-.ambient{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
-.blob{
-  position:absolute;border-radius:50%;
-  filter:blur(90px);
-  will-change:transform;
-  opacity:0.32;
-}
-.blob-a{
-  width:640px;height:640px;top:-180px;left:-140px;
-  background:radial-gradient(circle,rgba(255,122,26,0.55),transparent 65%);
-  animation:drift-a 22s ease-in-out infinite alternate;
-}
-.blob-b{
-  width:760px;height:760px;bottom:-260px;right:-200px;
-  background:radial-gradient(circle,rgba(138,58,10,0.6),transparent 65%);
-  animation:drift-b 25s ease-in-out infinite alternate;
-  opacity:0.28;
-}
-.blob-c{
-  width:420px;height:420px;top:45%;left:38%;
-  background:radial-gradient(circle,rgba(232,93,4,0.4),transparent 65%);
-  animation:drift-c 18s ease-in-out infinite alternate;
-  opacity:0.18;
-}
-@keyframes drift-a{from{transform:translate(0,0) scale(1)}to{transform:translate(90px,60px) scale(1.12)}}
-@keyframes drift-b{from{transform:translate(0,0) scale(1.08)}to{transform:translate(-70px,-90px) scale(1)}}
-@keyframes drift-c{from{transform:translate(0,0) scale(1)}to{transform:translate(-60px,80px) scale(1.15)}}
+/* ============ Ambient background layer — disabled for the flat-black theme ============ */
+.ambient{display:none}
 
 /* Grain overlay */
 .grain{
@@ -133,9 +107,8 @@ section{padding:110px 0;position:relative}
 .btn-primary{
   background:linear-gradient(135deg,var(--orange),var(--orange-mid));
   color:#100800;
-  box-shadow:0 8px 32px rgba(255,122,26,0.28);
 }
-.btn-primary:hover{transform:scale(1.03);box-shadow:0 12px 44px rgba(255,122,26,0.42)}
+.btn-primary:hover{transform:scale(1.03)}
 .btn-ghost{
   background:var(--glass);border-color:var(--glass-border);color:var(--text);
   backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
@@ -168,7 +141,7 @@ section{padding:110px 0;position:relative}
 }
 .hero-grid{display:grid;grid-template-columns:55% 45%;align-items:center;gap:40px}
 .hero h1{font-size:clamp(44px,7.2vw,96px);font-weight:700;margin-bottom:24px}
-.hero h1 em{font-style:normal;color:var(--orange);text-shadow:0 0 60px rgba(255,122,26,0.4)}
+.hero h1 em{font-style:normal;color:var(--orange)}
 .hero .sub{color:var(--text-muted);font-size:19px;max-width:460px;margin-bottom:38px}
 .cta-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:52px}
 .stats-row{display:flex;gap:36px;flex-wrap:wrap}
@@ -190,7 +163,7 @@ section{padding:110px 0;position:relative}
   background:linear-gradient(160deg,#2a2622,#151311 40%,#1f1c18);
   padding:10px;
   border:1px solid rgba(255,255,255,0.12);
-  box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 80px rgba(255,122,26,0.18),inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow:0 40px 100px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);
 }
 .phone-main{
   transform:rotateY(-12deg) rotateX(4deg);
@@ -215,14 +188,11 @@ section{padding:110px 0;position:relative}
 /* CSS-only animated "reel" placeholder inside the screen */
 .reel-fake{
   position:absolute;inset:0;
-  background:
-    radial-gradient(120% 90% at 70% 20%,rgba(255,122,26,0.5),transparent 55%),
-    radial-gradient(100% 80% at 20% 85%,rgba(138,58,10,0.65),transparent 60%),
-    linear-gradient(180deg,#1a120a,#0b0705);
+  background:linear-gradient(180deg,#1a1a1a,#0b0b0b);
 }
 .reel-fake::before{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(115deg,transparent 30%,rgba(255,180,100,0.16) 46%,rgba(255,220,160,0.28) 50%,rgba(255,180,100,0.16) 54%,transparent 70%);
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,0.05) 46%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.05) 54%,transparent 70%);
   transform:translateX(-120%);
   animation:beam 5.5s ease-in-out infinite;
 }
@@ -245,7 +215,7 @@ section{padding:110px 0;position:relative}
 .play-pulse::after{
   content:"";border-left:16px solid var(--text);border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px;
 }
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,122,26,0.35)}50%{box-shadow:0 0 0 16px rgba(255,122,26,0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.12)}50%{box-shadow:0 0 0 16px rgba(255,255,255,0)}}
 
 .scroll-hint{
   position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
@@ -272,7 +242,7 @@ section{padding:110px 0;position:relative}
 .filter-pill:hover{color:var(--text);border-color:rgba(255,122,26,0.4)}
 .filter-pill.active{
   color:#100800;background:linear-gradient(135deg,var(--orange),var(--orange-mid));
-  border-color:transparent;box-shadow:0 6px 28px rgba(255,122,26,0.35);
+  border-color:transparent;
 }
 
 /* Horizontal filmstrip: cards sit side by side in one scrollable row */
@@ -299,7 +269,7 @@ section{padding:110px 0;position:relative}
 .cf-card .phone-screen{border-radius:24px}
 .cf-card.center{
   opacity:1;transform:scale(1);
-  box-shadow:0 30px 80px rgba(0,0,0,0.6),0 0 60px rgba(255,122,26,0.22);
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
   border-color:rgba(255,122,26,0.45);
 }
 /* Drag hint pill with animated icon */
@@ -326,10 +296,10 @@ section{padding:110px 0;position:relative}
   font-size:18px;display:flex;align-items:center;justify-content:center;
   backdrop-filter:blur(12px);transition:all .3s var(--ease-out);
 }
-.cf-arrow:hover{border-color:var(--orange);color:var(--orange);transform:scale(1.06);box-shadow:0 0 30px rgba(255,122,26,0.25)}
+.cf-arrow:hover{border-color:var(--orange);color:var(--orange);transform:scale(1.06)}
 .cf-dots{display:flex;gap:8px}
 .cf-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.18);border:none;padding:0;transition:all .3s}
-.cf-dot.active{background:var(--orange);box-shadow:0 0 12px rgba(255,122,26,0.6);width:22px;border-radius:4px}
+.cf-dot.active{background:var(--orange);width:22px;border-radius:4px}
 
 /* YouTube embeds */
 .yt-hero{
@@ -364,18 +334,14 @@ section{padding:110px 0;position:relative}
 .motion-list li b{color:var(--text);font-weight:600;display:block;margin-bottom:2px;font-size:15px}
 .motion-list li::before{
   content:"";flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:8px;
-  background:var(--orange);box-shadow:0 0 12px rgba(255,122,26,0.7);
+  background:var(--orange);
 }
 .motion-stage{position:relative;display:flex;flex-direction:column;align-items:center}
-.motion-stage::before{
-  content:"";position:absolute;width:420px;height:420px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(255,122,26,0.28),transparent 65%);filter:blur(50px);pointer-events:none;
-}
 .motion-phone{
   position:relative;width:min(310px,100%);aspect-ratio:9/17.5;border-radius:34px;padding:9px;
   background:linear-gradient(160deg,#262220,#131110 45%,#1d1a17);
   border:1px solid rgba(255,122,26,0.45);
-  box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 70px rgba(255,122,26,0.22);
+  box-shadow:0 40px 100px rgba(0,0,0,0.6);
   cursor:pointer;
   transition:width .5s var(--ease-out),aspect-ratio .5s var(--ease-out),border-radius .5s var(--ease-out);
 }
@@ -394,7 +360,7 @@ section{padding:110px 0;position:relative}
 .motion-tab:hover{color:var(--text);border-color:rgba(255,122,26,0.4)}
 .motion-tab.active{
   color:#100800;background:linear-gradient(135deg,var(--orange),var(--orange-mid));
-  border-color:transparent;box-shadow:0 6px 28px rgba(255,122,26,0.35);
+  border-color:transparent;
 }
 .motion-sound{
   position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:6;
@@ -421,7 +387,7 @@ section{padding:110px 0;position:relative}
   display:flex;align-items:center;justify-content:center;
   transition:box-shadow .3s,transform .3s;
 }
-.svc:hover .svc-icon{box-shadow:0 0 26px rgba(255,122,26,0.35);transform:scale(1.06)}
+.svc:hover .svc-icon{transform:scale(1.06)}
 .svc-icon svg{width:22px;height:22px;stroke:var(--orange);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .svc h3{font-size:17px;margin-bottom:6px}
 .svc p{font-size:13.5px;color:var(--text-muted);line-height:1.5}
@@ -451,7 +417,7 @@ section{padding:110px 0;position:relative}
   background:rgba(255,122,26,0.08);border:1px solid rgba(255,122,26,0.3);color:var(--text);
   transition:box-shadow .3s,border-color .3s;
 }
-.pill:hover{box-shadow:0 0 24px rgba(255,122,26,0.28);border-color:var(--orange)}
+.pill:hover{border-color:var(--orange)}
 /* AI Toolkit — subscription/plan style cards */
 .ai-toolkit{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:26px 0 38px}
 .tool-card{
@@ -484,7 +450,7 @@ section{padding:110px 0;position:relative}
 }
 .process-line-fill{
   height:100%;width:0;background:linear-gradient(90deg,var(--orange-deep),var(--orange));
-  box-shadow:0 0 16px rgba(255,122,26,0.6);border-radius:2px;
+  border-radius:2px;
   transition:width .2s linear;
 }
 .step{text-align:center;position:relative;z-index:2}
@@ -496,8 +462,7 @@ section{padding:110px 0;position:relative}
   transition:all .4s var(--ease-out);
 }
 .step.lit .step-node{
-  border-color:var(--orange);color:var(--orange);
-  box-shadow:0 0 28px rgba(255,122,26,0.4);background:rgba(255,122,26,0.08);
+  border-color:var(--orange);color:var(--orange);background:rgba(255,122,26,0.08);
 }
 .step h3{font-size:16.5px;margin-bottom:6px}
 .step p{font-size:13px;color:var(--text-muted);line-height:1.5;max-width:180px;margin:0 auto}
@@ -528,14 +493,7 @@ section{padding:110px 0;position:relative}
 
 /* ============ Contact ============ */
 .contact{padding:150px 0;text-align:center;overflow:hidden;position:relative}
-.contact-glow{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:900px;height:900px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(255,122,26,0.22),rgba(232,93,4,0.08) 40%,transparent 65%);
-  filter:blur(60px);
-  animation:contact-breathe 9s ease-in-out infinite alternate;
-}
-@keyframes contact-breathe{from{transform:translate(-50%,-50%) scale(0.92)}to{transform:translate(-50%,-50%) scale(1.08)}}
+.contact-glow{display:none}
 .contact h2{font-size:clamp(38px,5.6vw,72px);margin-bottom:18px;position:relative}
 .contact .sub{color:var(--text-muted);margin-bottom:52px;position:relative}
 .contact-btns{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative}
@@ -546,7 +504,7 @@ section{padding:110px 0;position:relative}
   backdrop-filter:blur(20px);color:var(--text);font-size:14px;font-weight:500;
   transition:transform .3s var(--ease-out),border-color .3s,box-shadow .35s;
 }
-.contact-btn:hover{transform:translateY(-6px);border-color:rgba(255,122,26,0.5);box-shadow:0 16px 50px rgba(255,122,26,0.22)}
+.contact-btn:hover{transform:translateY(-6px);border-color:rgba(255,122,26,0.5)}
 .contact-btn svg{width:26px;height:26px;stroke:var(--orange);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ============ Footer ============ */
@@ -560,7 +518,7 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
   background:var(--glass);border:1px solid var(--glass-border);color:var(--orange);font-size:17px;
   transition:box-shadow .3s,transform .3s;
 }
-.to-top:hover{box-shadow:0 0 26px rgba(255,122,26,0.35);transform:translateY(-3px)}
+.to-top:hover{transform:translateY(-3px)}
 
 /* ============ Responsive ============ */
 @media(max-width:1024px){
@@ -960,30 +918,30 @@ counters.forEach(el=>counterIO.observe(el));
 /* ---------- Video showcase data ----------
    Each entry is a real YouTube Short: `id` is the video ID.
    Edit the titles here to rename the cards. */
-/* Ordered oldest → newest (by generation/upload timestamp) */
+/* Ordered newest → oldest (by generation/upload timestamp) */
 const REELS = [
-  {id:"BicP6EuuDKU", title:"AI Concept 01",       plat:"YOUTUBE", cat:"concept"},
-  {id:"5KT20FP18yk", title:"AI Concept 02",       plat:"YOUTUBE", cat:"concept"},
-  {id:"c6220o0YIaI", title:"AI Concept 03",       plat:"YOUTUBE", cat:"concept"},
-  {id:"fFFPyD_CW5Q", title:"AI Concept 04",       plat:"YOUTUBE", cat:"concept"},
-  {id:"KbADfFqFMEs", title:"AI Concept 05",       plat:"YOUTUBE", cat:"concept"},
-  {id:"3FV2CdkWVio", title:"AI Concept 06",       plat:"YOUTUBE", cat:"concept"},
-  {id:"ljGg-QPPeSo", title:"Doctor Reel",         plat:"YOUTUBE", cat:"concept"},
-  {id:"JMLBUNcm_RE", title:"CGI Ad",              plat:"YOUTUBE", cat:"concept"},
-  {src:"assets/videos/ai-ugc-01.mp4", poster:"assets/videos/ai-ugc-01.jpg", title:"AI UGC Ad 01", plat:"AI UGC", cat:"ugc"},
-  {src:"assets/videos/ai-ugc-02.mp4", poster:"assets/videos/ai-ugc-02.jpg", title:"AI UGC Ad 02", plat:"AI UGC", cat:"ugc"},
-  {src:"assets/videos/ai-snack-commercial.mp4", poster:"assets/videos/ai-snack-commercial.jpg", title:"AI Snack Commercial", plat:"AI COMMERCIAL", cat:"concept", landscape:true},
-  {src:"assets/videos/ai-citrus-drink.mp4", poster:"assets/videos/ai-citrus-drink.jpg", title:"Citrus Drink Motion Graphics", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-potato-chips.mp4", poster:"assets/videos/ai-potato-chips.jpg", title:"Potato Chips Commercial", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-orange-coord.mp4", poster:"assets/videos/ai-orange-coord.jpg", title:"Fashion Commercial", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-apple-juice.mp4", poster:"assets/videos/ai-apple-juice.jpg", title:"Apple Juice Commercial", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-choc-chip-cookies.mp4", poster:"assets/videos/ai-choc-chip-cookies.jpg", title:"Cookies Commercial", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-sequence-03.mp4", poster:"assets/videos/ai-sequence-03.jpg", title:"Golden Bubbles", plat:"AI CONCEPT", cat:"concept"},
-  {src:"assets/videos/ai-sequence-07.mp4", poster:"assets/videos/ai-sequence-07.jpg", title:"Orange Grove Concept", plat:"AI CONCEPT", cat:"concept"},
-  {src:"assets/videos/ai-skincare.mp4", poster:"assets/videos/ai-skincare.jpg", title:"Skincare Commercial", plat:"AI COMMERCIAL", cat:"concept"},
-  {src:"assets/videos/ai-retro-console.mp4", poster:"assets/videos/ai-retro-console.jpg", title:"Retro Console Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-spray-cans.mp4", poster:"assets/videos/ai-spray-cans.jpg", title:"Spray Deodorant Commercial", plat:"AI COMMERCIAL", cat:"concept"},
   {src:"assets/videos/ai-sequence-01.mp4", poster:"assets/videos/ai-sequence-01.jpg", title:"Orange Peel Concept", plat:"AI CONCEPT", cat:"concept"},
-  {src:"assets/videos/ai-spray-cans.mp4", poster:"assets/videos/ai-spray-cans.jpg", title:"Spray Deodorant Commercial", plat:"AI COMMERCIAL", cat:"concept"}
+  {src:"assets/videos/ai-retro-console.mp4", poster:"assets/videos/ai-retro-console.jpg", title:"Retro Console Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-skincare.mp4", poster:"assets/videos/ai-skincare.jpg", title:"Skincare Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-sequence-07.mp4", poster:"assets/videos/ai-sequence-07.jpg", title:"Orange Grove Concept", plat:"AI CONCEPT", cat:"concept"},
+  {src:"assets/videos/ai-sequence-03.mp4", poster:"assets/videos/ai-sequence-03.jpg", title:"Golden Bubbles", plat:"AI CONCEPT", cat:"concept"},
+  {src:"assets/videos/ai-choc-chip-cookies.mp4", poster:"assets/videos/ai-choc-chip-cookies.jpg", title:"Cookies Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-apple-juice.mp4", poster:"assets/videos/ai-apple-juice.jpg", title:"Apple Juice Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-orange-coord.mp4", poster:"assets/videos/ai-orange-coord.jpg", title:"Fashion Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-potato-chips.mp4", poster:"assets/videos/ai-potato-chips.jpg", title:"Potato Chips Commercial", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-citrus-drink.mp4", poster:"assets/videos/ai-citrus-drink.jpg", title:"Citrus Drink Motion Graphics", plat:"AI COMMERCIAL", cat:"concept"},
+  {src:"assets/videos/ai-snack-commercial.mp4", poster:"assets/videos/ai-snack-commercial.jpg", title:"AI Snack Commercial", plat:"AI COMMERCIAL", cat:"concept", landscape:true},
+  {src:"assets/videos/ai-ugc-02.mp4", poster:"assets/videos/ai-ugc-02.jpg", title:"AI UGC Ad 02", plat:"AI UGC", cat:"ugc"},
+  {src:"assets/videos/ai-ugc-01.mp4", poster:"assets/videos/ai-ugc-01.jpg", title:"AI UGC Ad 01", plat:"AI UGC", cat:"ugc"},
+  {id:"JMLBUNcm_RE", title:"CGI Ad",              plat:"YOUTUBE", cat:"concept"},
+  {id:"ljGg-QPPeSo", title:"Doctor Reel",         plat:"YOUTUBE", cat:"concept"},
+  {id:"3FV2CdkWVio", title:"AI Concept 06",       plat:"YOUTUBE", cat:"concept"},
+  {id:"KbADfFqFMEs", title:"AI Concept 05",       plat:"YOUTUBE", cat:"concept"},
+  {id:"fFFPyD_CW5Q", title:"AI Concept 04",       plat:"YOUTUBE", cat:"concept"},
+  {id:"c6220o0YIaI", title:"AI Concept 03",       plat:"YOUTUBE", cat:"concept"},
+  {id:"5KT20FP18yk", title:"AI Concept 02",       plat:"YOUTUBE", cat:"concept"},
+  {id:"BicP6EuuDKU", title:"AI Concept 01",       plat:"YOUTUBE", cat:"concept"}
 ];
 
 const coverflow = document.getElementById("coverflow");
