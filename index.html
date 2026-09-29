@@ -366,7 +366,7 @@ section{padding:110px 0;position:relative}
   content:"";flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:8px;
   background:var(--orange);box-shadow:0 0 12px rgba(255,122,26,0.7);
 }
-.motion-stage{position:relative;display:flex;justify-content:center}
+.motion-stage{position:relative;display:flex;flex-direction:column;align-items:center}
 .motion-stage::before{
   content:"";position:absolute;width:420px;height:420px;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);
   background:radial-gradient(circle,rgba(255,122,26,0.28),transparent 65%);filter:blur(50px);pointer-events:none;
@@ -377,12 +377,14 @@ section{padding:110px 0;position:relative}
   border:1px solid rgba(255,122,26,0.45);
   box-shadow:0 40px 100px rgba(0,0,0,0.6),0 0 70px rgba(255,122,26,0.22);
   cursor:pointer;
+  transition:width .5s var(--ease-out),aspect-ratio .5s var(--ease-out),border-radius .5s var(--ease-out);
 }
-.motion-phone .phone-screen{border-radius:26px}
+.motion-phone.landscape{width:min(480px,100%);aspect-ratio:16/9;border-radius:20px}
+.motion-phone .phone-screen{border-radius:26px;transition:border-radius .5s var(--ease-out)}
+.motion-phone.landscape .phone-screen{border-radius:13px}
 .motion-phone video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.motion-bg{display:none;position:absolute;inset:-24px;width:calc(100% + 48px);height:calc(100% + 48px);max-width:none;object-fit:cover;filter:blur(22px) brightness(0.65)}
-.motion-phone.landscape .motion-bg{display:block}
-.motion-phone.landscape video{object-fit:contain;background:transparent}
+.motion-bg{display:none}
+.motion-stage-label{text-align:center;color:var(--text-muted);font-size:13px;margin-bottom:16px}
 .motion-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
 .motion-tab{
   padding:9px 18px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-muted);
@@ -703,22 +705,22 @@ footer{border-top:1px solid var(--hairline);padding:40px 0}
         <p class="eyebrow">Motion Graphics</p>
         <h2>Motion That Tells the Story.</h2>
       </div>
-      <p class="reveal">A dedicated space for my <strong>AI-driven motion graphics</strong> — illustrated scenes and character animation built for vertical, social-first platforms, where every movement carries the message.</p>
+      <p class="reveal">A dedicated space for my <strong>AI-driven motion graphics</strong> — illustrated scenes and character animation, framed for every platform, where every movement carries the message.</p>
       <ul class="motion-list reveal">
         <li><div><b>Illustrated Scenes</b>Flat, stylized worlds designed to feel handmade and on-brand.</div></li>
         <li><div><b>Character Animation</b>Expressive characters that hold attention through the whole story.</div></li>
-        <li><div><b>Vertical-First</b>Framed and paced for Reels, TikTok and Shorts from the first second.</div></li>
+        <li><div><b>Vertical &amp; Horizontal</b>Cut for Reels and Shorts, or framed wide for web and product demos.</div></li>
       </ul>
       <a href="#contact" class="btn btn-primary reveal">Request Motion Graphics</a>
     </div>
     <div class="motion-stage reveal">
+      <p class="motion-stage-label">Samples from my motion graphics work</p>
       <div class="motion-tabs" id="motionTabs">
         <button class="motion-tab active" data-i="0">Food &amp; Lifestyle</button>
         <button class="motion-tab" data-i="1">UI &amp; Product</button>
       </div>
       <div class="motion-phone" id="motionPhone" title="Tap to toggle sound">
         <div class="phone-screen">
-          <img class="motion-bg" id="motionBg" alt="">
           <video id="motionVideo" src="assets/videos/ai-motion-graphics.mp4" poster="assets/videos/ai-motion-graphics.jpg" muted loop playsinline preload="metadata"></video>
           <div class="motion-sound">TAP FOR <em>SOUND</em></div>
         </div>
@@ -1180,7 +1182,6 @@ window.addEventListener("resize", updateProcess);
 /* ---------- Motion graphics player: two samples, tap to toggle sound ---------- */
 const motionPhone = document.getElementById("motionPhone");
 const motionVideo = document.getElementById("motionVideo");
-const motionBg    = document.getElementById("motionBg");
 const motionTabs  = document.getElementById("motionTabs");
 const MOTION_VIDEOS = [
   {src:"assets/videos/ai-motion-graphics.mp4",    poster:"assets/videos/ai-motion-graphics.jpg",    landscape:false},
@@ -1194,7 +1195,6 @@ if(motionTabs){
     motionTabs.querySelectorAll(".motion-tab").forEach(b=>b.classList.remove("active"));
     btn.classList.add("active");
     motionPhone.classList.toggle("landscape", item.landscape);
-    motionBg.src = item.poster;
     const wasMuted = motionVideo.muted;
     motionVideo.src = item.src;
     motionVideo.poster = item.poster;
